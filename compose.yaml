@@ -1,0 +1,43 @@
+volumes:
+  db_data:
+    driver: local
+
+services:
+  server:
+    image: node:latest
+    container_name: ferry-server
+    restart: always
+    working_dir: /app/server
+    volumes:
+      - ./src/server:/app/server
+    ports:
+      - '3000:3000'
+    environment:
+      DB_CONNECTION_STRING: mongodb://${DB_USERNAME}:${DB_PASSWORD}@mongodb:27017
+    command: >
+      sh -c "npm ci && npm run dev"
+
+  client:
+    image: node:latest
+    container_name: ferry-client
+    restart: always
+    working_dir: /app/client
+    volumes:
+      - ./src/client:/app/client
+    ports:
+      - '5173:5173'
+    command: >
+      sh -c "npm ci && npm run client"
+
+  mongodb:
+    image: mongo:latest
+    container_name: mongodb
+    restart: always
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${DB_USERNAME}
+      MONGO_INITDB_ROOT_PASSWORD: ${DB_PASSWORD}
+    volumes:
+      - db_data:/data/db
+

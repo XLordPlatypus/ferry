@@ -1,0 +1,35 @@
+volumes:
+  db_data:
+    driver: local
+
+services:
+  server:
+    build: src/server
+    container_name: ferry-server
+    restart: always
+    ports:
+      - '3000:3000'
+      - '1080:1080'
+    environment:
+      DB_CONNECTION_STRING: mongodb://${DB_USERNAME}:${DB_PASSWORD}@mongodb:27017
+      SECRET_KEY: ${SECRET_KEY}
+
+  client:
+    build: src/client
+    container_name: ferry-client
+    restart: always
+    ports:
+      - '5173:5173'
+
+  mongodb:
+    image: mongo:latest
+    container_name: mongodb
+    restart: always
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${DB_USERNAME}
+      MONGO_INITDB_ROOT_PASSWORD: ${DB_PASSWORD}
+    volumes:
+      - db_data:/data/db
+

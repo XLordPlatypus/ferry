@@ -1,0 +1,40 @@
+stages:
+  - build
+
+variables:
+  GIT_STRATEGY: clone
+  MONGODB_PWD: $CI_MONGODB_PWD
+  MONGODB_USER: $CI_MONGODB_USER
+
+build:
+  stage: build
+  image:
+    name: node:latest
+    entrypoint: [ "" ]
+  tags:
+    - shared
+  interruptible: true
+  services:
+    - name: mongo:latest
+      alias: mongodb
+      variables:
+        MONGO_INITDB_ROOT_USERNAME: $MONGODB_USER
+        MONGO_INITDB_ROOT_PASSWORD: $MONGODB_PWD
+  script:
+    - |
+      echo "Building server ..."
+      cd src/server
+      npm install
+      npm run build
+    - |
+      echo "Building client ..."
+      cd ../../src/client
+      npm install
+      npm run build
+  artifacts:
+    paths:
+      - src/client/dist
+      - src/server/dist
+    expire_in: 1 week
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "push"'

@@ -1,0 +1,47 @@
+{
+  "reservierung": {
+    "reservierung_id": 123,
+    "reisender": {
+      "nachname": "Muster",
+      "vorname": "Hans",
+      "geburtsdatum": "01.01.1980",
+      "geschlecht": "männlich",
+      "email": "hans.muster@example.com",
+      "telefonnummer": "+41 01 234 56 78",
+      "nationalität": "Schweiz",
+      "adresse": {
+        "strasse": "Musterstrasse 123",
+        "hausnummer": "1",
+        "hausnummerZusatz": "",
+        "ort": "Musterstadt",
+        "plz": "12345"
+      },
+      "driver": {
+        "laenderkennzeichen": "CH",
+        "nummer": "001122334455",
+        "ausstelldatum": "2025-02-03"
+      }
+    },
+    "fahrzeug": {
+      "kennzeichen": "GR 123456",
+      "fahrzeughöhe": "2m - 2.6m",
+      "fahrzeuglänge": "5m - 6m",
+      "anhänger": {
+        "vorhanden": true,
+        "länge": "2m - 3m"
+      },
+      "motorrad": true
+    },
+    "strecke": {
+      "von": "Chur",
+      "nach": "Chur",
+      "ab": "12:15",
+      "an": "15:30",
+      "ferry": {
+        "namen": "ferry",
+        "capacity_length": "20m",
+        "capacity_height": "4m"
+      }
+    }
+  }
+}
