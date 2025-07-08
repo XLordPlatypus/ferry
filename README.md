@@ -1,7 +1,7 @@
 # Ferry
 
 ## Contributors
-Leandro und Francesco
+Leaaep und Francesco
 
 ## Description
 A Ferry app.
